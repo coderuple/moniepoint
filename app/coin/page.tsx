@@ -27,7 +27,7 @@ export default function Coin() {
 				</div>
 			</div>
 
-			<div className="fixed  flex w-full bottom-0">
+			<div className="fixed  flex w-full bottom-0 py-10">
 				<ButtonOrLink intent="secondary" fullWidth>
 					sell
 				</ButtonOrLink>
