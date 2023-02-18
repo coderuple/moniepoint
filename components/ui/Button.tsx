@@ -46,7 +46,7 @@ const button = cva(
 				true: "w-full",
 			},
 			nospace: {
-				true: ["px-0", "py-0", "pr-0", "pl-0"],
+				true: ["px-0", "py-0", "pr-0", "pl-0", "pt-0", "pb-0"],
 			},
 		},
 		compoundVariants: [{ intent: "primary", size: "medium" }],
@@ -103,7 +103,7 @@ const ButtonOrLink: React.FC<ButtonOrLinkProps> = ({
 			{left && <span className="pr-3">{left}</span>}
 			{text && text}
 			{children && children}
-			{right && <span className="pl-3">{right}</span>}
+			{right && <span className="pl-3 ">{right}</span>}
 		</button>
 	);
 };

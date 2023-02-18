@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
-import addIcon from "../../images/svgs/add.svg";
+import Add from "../../images/svgs/add.svg";
 
 export default function Header() {
 	return (
@@ -13,7 +13,7 @@ export default function Header() {
 
 			<div>
 				<Button intent="white">
-					<Image src={addIcon} alt="I" />
+					<Add className="h-6 w-6 text-center flex justify-center items-center" />
 				</Button>
 			</div>
 		</div>

@@ -1,18 +1,14 @@
 import CoinList from "@/components/coin/CoinList";
 import Nft from "@/components/nft/Nft";
+import NftList from "@/components/nft/NftList";
 
 import coins from "../data/coins";
-
+import nfts from "../data/nfts";
 export default function Home() {
 	return (
 		<div>
 			<CoinList data={coins} />
-			<Nft
-				price={0.41}
-				name="Infnity"
-				crypto="Bitcoin"
-				owner={{ username: "lotanna" }}
-			/>
+			<NftList data={nfts} />
 		</div>
 	);
 }
