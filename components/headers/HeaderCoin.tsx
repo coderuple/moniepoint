@@ -4,36 +4,93 @@ import Image from "next/image";
 import Back from "../../images/svgs/back.svg";
 import ButtonOrLink from "../ui/Button";
 
+import { motion } from "framer-motion";
+import Balance from "../Balance";
+import { type } from "os";
+import IconFacade from "../IconFacade";
+
 type HeaderCoinProps = {
 	slug?: string;
 	name?: string;
-	Icon?: JSX.Element | string;
+	Icon?: JSX.Element;
 	price?: number;
 };
 export default function HeaderCoin({ name, Icon, price }: HeaderCoinProps) {
 	return (
 		<div className="px-4 py-8 space-y-8">
 			<div className=" flex justify-between items-middle relative  ">
-				<ButtonOrLink
-					href="/"
-					intent="link"
-					nospace
+				<motion.div
+					initial={{
+						rotate: "90deg",
+						scale: 0,
+					}}
+					animate={{
+						rotate: "0",
+						scale: 1,
+					}}
+					transition={{
+						duration: 1,
+						delay: 0.8,
+						type: "tween",
+					}}
 					className="absolute top-0 left-0  "
 				>
-					<Back className="text-white w-6" />
-				</ButtonOrLink>
+					<ButtonOrLink href="/" intent="link" nospace>
+						<Back className="text-white w-6" />
+					</ButtonOrLink>
+				</motion.div>
 
 				<h1 className="text-white text-center text-lg justify-center items-center flex flex-1 space-x-2">
-					<span className="text-brand-tertiary-dark bg-white flex justify-end items-middle rounded-full text-2xl bg-clip-border border-brand-tertiary-dark">
-						{Icon}
-					</span>
-					<span>{name}</span>
+					<motion.span
+						initial={{
+							scale: 0,
+						}}
+						animate={{
+							scale: 1.3,
+						}}
+						transition={{
+							duration: 1,
+							delay: 1,
+							type: "tween",
+						}}
+					>
+						{Icon && <IconFacade Icon={Icon} />}
+					</motion.span>
+					<motion.span
+						initial={{
+							y: "-100%",
+						}}
+						animate={{
+							y: 1,
+						}}
+						transition={{
+							duration: 1,
+							delay: 0.8,
+							type: "tween",
+						}}
+					>
+						{name}
+					</motion.span>
 				</h1>
 			</div>
 
-			<h2 className="text-white text-5xl">
+			<Balance
+				amount={price}
+				size="large"
+				animated
+				isHome={false}
+				right={
+					<span>
+						<motion.span className="text-xs text-brand">
+							{" "}
+							+22.33 (0.72%)
+						</motion.span>
+					</span>
+				}
+			/>
+			{/* <h2 className="text-white text-5xl">
 				${price} <span className="text-brand text-xs">+11.62 (0.74%)</span>
-			</h2>
+			</h2> */}
 		</div>
 	);
 }

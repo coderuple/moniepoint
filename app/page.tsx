@@ -6,8 +6,9 @@ import coins from "../data/coins";
 import nfts from "../data/nfts";
 export default function Home() {
 	return (
-		<div>
+		<div className="pt-32">
 			<CoinList data={coins} />
+
 			<NftList data={nfts} />
 		</div>
 	);

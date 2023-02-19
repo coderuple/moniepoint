@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import Bid from "../../images/svgs/bid.svg";
 import Back from "../../images/svgs/back.svg";
+import AddUser from "../../images/svgs/addUser.svg";
 import Button from "../ui/Button";
 import coins from "../../data/coins";
 import Image, { StaticImageData } from "next/image";
-
+import { motion } from "framer-motion";
+import IconFacade from "../IconFacade";
 const NftPrice = () => {};
 
 export type NftProps = {
@@ -28,51 +30,72 @@ export default function Nft({
 	owner,
 	image,
 }: NftProps) {
-	console.log(image);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const openClassNames = {
-		container: "fixed w-full top-0",
+		container:
+			"fixed w-full z-10 top-0  overflow-scroll h-[100vh]  bg-brand-tertiary-dark",
 		image:
-			"bg-brand h-80  aspect-w-16 aspect-h-9 rounded-t-none rounded-b-xl cursor-pointer",
+			"h-80   relative aspect-w-16 aspect-h-16 rounded-t-none rounded-b-xl cursor-pointer",
 	};
 	const closedClassNames = {
-		container: "py-8",
-		image:
-			"bg-brand h-72  aspect-w-16 aspect-h-16  rounded-t-3xl rounded-b-xl cursor-pointer",
+		container: "py-8 z-1 relative",
+		image: " relative aspect-w-16 aspect-h-14   cursor-pointer",
 	};
 
 	const coin = coins.find(({ slug }) => {
 		return slug == crypto;
 	});
 	return (
-		<div
+		<motion.div
+			initial={{ opacity: 0, y: "10%" }}
+			whileInView={{ opacity: 1, y: 0 }}
+			transition={{
+				duration: 1,
+			}}
 			className={isOpen ? openClassNames.container : closedClassNames.container}
-			// style={{
-			// 	backgroundImage: `url(${image})`,
-			// }}
 		>
-			<div
+			{isOpen && (
+				<Button
+					intent="link"
+					className="absolute z-10"
+					onClick={() => {
+						setIsOpen((prev) => {
+							return !prev;
+						});
+					}}
+				>
+					<Back className="text-brand-tertiary-dark w-6 drop-shadow-md" />
+				</Button>
+			)}
+			<motion.div
+				layout
+				transition={{
+					layout: { duration: 0.8 },
+				}}
 				className={isOpen ? openClassNames.image : closedClassNames.image}
 				onClick={() => {
-					setIsOpen(!isOpen);
+					setIsOpen((prev) => {
+						return !prev;
+					});
 				}}
+				whileHover={{ scale: !isOpen ? 0.95 : 1 }}
 			>
-				{isOpen && (
-					<Button onClick={() => {}}>
-						<Back className="text-brand-tertiary-dark w-6" />
-					</Button>
-				)}
-
-				<Image {...image} alt="" />
-			</div>
+				<Image
+					className={`${
+						!isOpen ? "rounded-t-3xl" : "rounded-t-none"
+					}  rounded-b-xl`}
+					{...image}
+					alt=""
+				/>
+			</motion.div>
 
 			{isOpen ? (
-				<div className="py-4 space-y-4 ">
-					<div className="px-4 space-y-3">
+				<div className="py-4 space-y-4 overflow-scroll ">
+					<div className="px-4 space-y-3 ">
 						<h2 className="text-white text-3xl">
 							{name} {id && <span className="px-1">#{id}</span>}
 						</h2>{" "}
-						<div className="flex items-center justify-between ">
+						<div className="flex items-center  justify-between ">
 							<div className="flex flex-col space-y-2">
 								{" "}
 								<span className="text-xs text-gray-500"> creator</span>
@@ -89,13 +112,13 @@ export default function Nft({
 								intent="link"
 								className="text-white border-brand-secondary-dark border"
 							>
-								u
+								<AddUser className="w-6" />
 							</Button>
 						</div>
 					</div>
 
-					<div className="space-y-6">
-						<div className="flex">
+					<div className="space-y-12 ">
+						<div className="flex  ">
 							<Button intent="tertiary" fullWidth>
 								12:21:45
 							</Button>
@@ -113,15 +136,17 @@ export default function Nft({
 					</div>
 				</div>
 			) : (
-				<div className="flex p-6 bg-brand-tertiary items-center justify-between rounded-t-xl rounded-b-3xl mt-1">
+				<div className="flex p-6 relative bg-brand-tertiary items-center justify-between rounded-t-xl rounded-b-3xl mt-1">
 					<div
 						className="text-white text-xl font-semibold flex space-x-2
           "
 					>
-						{coin && (
-							<span className="text-brand-tertiary bg-white flex justify-center w-[24px] h-[24px] items-middle rounded-full  ">
-								{coin.Icon}
-							</span>
+						{coin?.Icon && (
+							<IconFacade
+								Icon={coin.Icon}
+								bgClassName="border-brand-tertiary text-brand-tertiary"
+								facadeClassName="border-brand-tertiary"
+							/>
 						)}
 						<span className="tracking-widest">{price}</span>
 					</div>
@@ -129,6 +154,6 @@ export default function Nft({
 					<div className="text-gray-400">07 : 24 : 35</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 }

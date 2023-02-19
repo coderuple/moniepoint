@@ -38,7 +38,7 @@ const button = cva(
 				link: ["bg-transparent", "", "text-brand"],
 			},
 			size: {
-				small: ["text-sm", "py-2", "px-4", "rounded-[12px]"],
+				small: ["text-sm", "py-2", "px-6", "rounded-[12px]"],
 				medium: ["text-base", "py-4", "px-6"],
 				large: ["text-xl", "py-4", "px-8"],
 			},
