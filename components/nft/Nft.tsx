@@ -8,6 +8,7 @@ import coins from "../../data/coins";
 import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import IconFacade from "../IconFacade";
+import Timer from "../Timer";
 const NftPrice = () => {};
 
 export type NftProps = {
@@ -16,7 +17,7 @@ export type NftProps = {
 	price: number;
 	image: StaticImageData;
 	crypto: string;
-	expiryDate?: string;
+	expiryDate: string;
 	owner?: {
 		avatar?: string;
 		username: string;
@@ -28,17 +29,17 @@ export default function Nft({
 	crypto,
 	name,
 	owner,
+	expiryDate,
 	image,
 }: NftProps) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const openClassNames = {
-		container:
-			"fixed w-full z-10 top-0  overflow-scroll h-[100vh]  bg-brand-tertiary-dark",
+		container: "fixed w-full z-10 top-0   h-full  bg-brand-tertiary-dark",
 		image:
 			"h-80   relative aspect-w-16 aspect-h-16 rounded-t-none rounded-b-xl cursor-pointer",
 	};
 	const closedClassNames = {
-		container: "py-8 z-1 relative",
+		container: "py-2 z-1 relative",
 		image: " relative aspect-w-16 aspect-h-14   cursor-pointer",
 	};
 
@@ -96,7 +97,22 @@ export default function Nft({
 							{name} {id && <span className="px-1">#{id}</span>}
 						</h2>{" "}
 						<div className="flex items-center  justify-between ">
-							<div className="flex flex-col space-y-2">
+							<motion.div
+								initial={{
+									x: "100%",
+									opacity: 0,
+								}}
+								animate={{
+									x: 0,
+									opacity: 1,
+								}}
+								transition={{
+									type: "tween",
+									delay: 0.5,
+									duration: 1,
+								}}
+								className="flex flex-col space-y-2"
+							>
 								{" "}
 								<span className="text-xs text-gray-500"> creator</span>
 								<div className="flex items-center space-x-1.5">
@@ -106,32 +122,99 @@ export default function Nft({
 										<p className="text-white text-sm"> @{owner.username}</p>
 									)}
 								</div>
-							</div>
+							</motion.div>
 
-							<Button
-								intent="link"
-								className="text-white border-brand-secondary-dark border"
+							<motion.div
+								initial={{ scale: 0 }}
+								animate={{
+									scale: 1,
+								}}
+								transition={{
+									duration: 1.5,
+									type: "tween",
+								}}
 							>
-								<AddUser className="w-6" />
-							</Button>
+								<Button
+									intent="link"
+									className="text-white border-brand-secondary-dark border"
+								>
+									<AddUser className="w-6" />
+								</Button>
+							</motion.div>
 						</div>
 					</div>
 
 					<div className="space-y-12 ">
 						<div className="flex  ">
-							<Button intent="tertiary" fullWidth>
-								12:21:45
-							</Button>
-							<Button intent="tertiary" fullWidth>
-								1.35
-							</Button>
+							<motion.div
+								initial={{
+									scale: 0,
+								}}
+								animate={{
+									scale: 1,
+								}}
+								transition={{
+									duration: 1,
+								}}
+								className="w-full"
+							>
+								{expiryDate && (
+									<Button
+										intent="tertiary"
+										fullWidth
+										className="tracking-widest"
+									>
+										<Timer date={expiryDate} />
+									</Button>
+								)}
+							</motion.div>
+							<motion.div
+								initial={{
+									scale: 0,
+								}}
+								animate={{
+									scale: 1,
+								}}
+								transition={{
+									duration: 1.5,
+								}}
+								className="w-full"
+							>
+								<Button intent="tertiary" fullWidth>
+									<span className="flex px-2 justify-center items-center space-x-2">
+										{coin?.Icon && (
+											<IconFacade
+												Icon={coin.Icon}
+												bgClassName="border-brand-tertiary text-brand-tertiary "
+												facadeClassName="border-brand-tertiary"
+											/>
+										)}
+										<span className="tracking-widest">{price}</span>
+									</span>
+								</Button>
+							</motion.div>
 						</div>
 
 						<div className="fixed bottom-0 w-full pb-3">
 							{" "}
-							<Button fullWidth right={<Bid className="h-6 w-6" />}>
-								<span className="text-xl">place a bid</span>
-							</Button>{" "}
+							<motion.div
+								initial={{
+									scale: 0,
+									originX: 0,
+								}}
+								animate={{
+									scale: 1,
+								}}
+								transition={{
+									delay: 1,
+									duration: 1.3,
+								}}
+								className="w-full"
+							>
+								<Button fullWidth right={<Bid className="h-6 w-6" />}>
+									<span className="text-xl">place a bid</span>
+								</Button>{" "}
+							</motion.div>
 						</div>
 					</div>
 				</div>
@@ -151,7 +234,11 @@ export default function Nft({
 						<span className="tracking-widest">{price}</span>
 					</div>
 
-					<div className="text-gray-400">07 : 24 : 35</div>
+					{expiryDate && (
+						<div className="text-gray-400">
+							<Timer date={expiryDate} />
+						</div>
+					)}
 				</div>
 			)}
 		</motion.div>

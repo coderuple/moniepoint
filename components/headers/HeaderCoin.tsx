@@ -1,13 +1,16 @@
+"use client";
 import React from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
 import Back from "../../images/svgs/back.svg";
 import ButtonOrLink from "../ui/Button";
 
-import { motion } from "framer-motion";
+import { motion, animate, useAnimationControls } from "framer-motion";
 import Balance from "../Balance";
-import { type } from "os";
+
 import IconFacade from "../IconFacade";
+
+import { useRouter } from "next/navigation";
 
 type HeaderCoinProps = {
 	slug?: string;
@@ -16,30 +19,11 @@ type HeaderCoinProps = {
 	price?: number;
 };
 export default function HeaderCoin({ name, Icon, price }: HeaderCoinProps) {
+	const router = useRouter();
+
 	return (
 		<div className="px-4 py-8 space-y-8">
 			<div className=" flex justify-between items-middle relative  ">
-				<motion.div
-					initial={{
-						rotate: "90deg",
-						scale: 0,
-					}}
-					animate={{
-						rotate: "0",
-						scale: 1,
-					}}
-					transition={{
-						duration: 1,
-						delay: 0.8,
-						type: "tween",
-					}}
-					className="absolute top-0 left-0  "
-				>
-					<ButtonOrLink href="/" intent="link" nospace>
-						<Back className="text-white w-6" />
-					</ButtonOrLink>
-				</motion.div>
-
 				<h1 className="text-white text-center text-lg justify-center items-center flex flex-1 space-x-2">
 					<motion.span
 						initial={{

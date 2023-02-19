@@ -3,19 +3,31 @@ import HeaderCoin from "@/components/headers/HeaderCoin";
 import ButtonOrLink from "@/components/ui/Button";
 import BuyIcon from "../../../images/svgs/buy.svg";
 import SellIcon from "../../../images/svgs/sell.svg";
+import Back from "../../../images/svgs/back.svg";
 import data from "../../../data/coins";
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import {
+	motion,
+	animate,
+	AnimatePresence,
+	useAnimationControls,
+	useMotionValue,
+	useMotionValueEvent,
+} from "framer-motion";
 import {
 	VictoryCandlestick,
 	VictoryAxis,
 	VictoryChart,
 	VictoryTheme,
 } from "victory";
+import { useRouter } from "next/navigation";
 export default function Coin({ params }: { params: { slug: string } }) {
 	const coin = data.find(({ slug }) => {
 		return params.slug == slug;
 	});
+
+	const route = useRouter();
+	const controls = useAnimationControls();
 
 	const dataSample = [
 		{ x: 1, open: 9, close: 10, high: 56, low: 7 },
@@ -29,28 +41,76 @@ export default function Coin({ params }: { params: { slug: string } }) {
 		{ x: 8, open: 80, close: 81, high: 83, low: 75 },
 		{ x: 8, open: 100, close: 81, high: 83, low: 75 },
 	];
+
+	const x = useMotionValue(0);
+
+	useMotionValueEvent(x, "animationStart", () => {
+		alert("animation started on x");
+	});
+	const [isExits, setIsExit] = useState(false);
+	useEffect(() => {
+		if (isExits) {
+			controls.start({
+				x: "100%",
+			});
+		} else {
+			controls.start({
+				x: "0",
+			});
+		}
+
+		return () => {
+			//
+		};
+	}, [isExits]);
 	return (
 		<AnimatePresence>
 			<motion.div
-				layout
+				layout="size"
 				initial={{
 					x: "100vw",
 				}}
-				animate={{
-					x: "0",
+				animate={controls}
+				onAnimationComplete={() => {
+					if (isExits) {
+						route.back();
+					}
 				}}
 				transition={{
 					duration: 1,
 					type: "tween",
 				}}
-				exit={{
-					x: "100vw",
-					opacity: 0,
-				}}
 				className="fixed h-full z-20 top-0 w-full bg-brand-tertiary-dark 
         
         "
 			>
+				<motion.div
+					initial={{
+						rotate: "90deg",
+						scale: 0,
+					}}
+					animate={{
+						rotate: "0",
+						scale: 1,
+					}}
+					transition={{
+						duration: 1,
+						delay: 0.8,
+						type: "tween",
+					}}
+					className="absolute top-0 py-8 px-4 left-0 z-20  "
+				>
+					<ButtonOrLink
+						intent="link"
+						onClick={() => {
+							setIsExit(true);
+						}}
+						nospace
+					>
+						<Back className="text-white w-6" />
+					</ButtonOrLink>
+				</motion.div>
+
 				<HeaderCoin {...coin} />
 
 				<div className="overflow-scroll">
@@ -127,16 +187,42 @@ export default function Coin({ params }: { params: { slug: string } }) {
 					</VictoryChart>
 				</div>
 				<div className="fixed  flex w-full bottom-0 py-10">
-					<ButtonOrLink
-						intent="secondary"
-						fullWidth
-						right={<SellIcon className="h-6 w-6" />}
+					<motion.div
+						initial={{
+							scale: 0,
+						}}
+						animate={{
+							scale: 1,
+						}}
+						transition={{
+							duration: 1.5,
+						}}
+						className="w-full"
 					>
-						<span className="text-xl">sell</span>
-					</ButtonOrLink>
-					<ButtonOrLink fullWidth right={<BuyIcon className="h-6 w-6" />}>
-						<span className="text-xl">buy</span>
-					</ButtonOrLink>
+						<ButtonOrLink
+							intent="secondary"
+							fullWidth
+							right={<SellIcon className="h-6 w-6" />}
+						>
+							<span className="text-xl">sell</span>
+						</ButtonOrLink>
+					</motion.div>
+					<motion.div
+						initial={{
+							scale: 0,
+						}}
+						animate={{
+							scale: 1,
+						}}
+						transition={{
+							duration: 2.2,
+						}}
+						className="w-full"
+					>
+						<ButtonOrLink fullWidth right={<BuyIcon className="h-6 w-6" />}>
+							<span className="text-xl">buy</span>
+						</ButtonOrLink>
+					</motion.div>
 				</div>
 			</motion.div>
 		</AnimatePresence>

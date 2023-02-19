@@ -15,7 +15,7 @@ export default [
         price: 1333.3,
         crypto: "btc",
         image: monkey,
-        expiryDate: "",
+        expiryDate: "February, 28, 2023",
         owner: {
             avatar: "",
             username: "peterobi"
@@ -27,7 +27,7 @@ export default [
         price: 1333.3,
         crypto: "matic",
         image: koreangirl,
-        expiryDate: "",
+        expiryDate: "February, 27, 2023",
         owner: {
             avatar: "",
             username: "kwakwanso"
@@ -38,7 +38,7 @@ export default [
         price: 1333.3,
         crypto: "link",
         image: skull,
-        expiryDate: "",
+        expiryDate: "February, 23, 2023",
         owner: {
             avatar: "",
             username: "tinubu"
@@ -49,7 +49,7 @@ export default [
         price: 12.3,
         crypto: "eth",
         image: anime,
-        expiryDate: "",
+        expiryDate: "February, 25, 2023",
         owner: {
             avatar: "",
             username: "atiku"
@@ -60,7 +60,7 @@ export default [
         price: 129.3,
         crypto: "ada",
         image: ant,
-        expiryDate: "",
+        expiryDate: "February, 22, 2023",
         owner: {
             avatar: "",
             username: "sowore"
@@ -71,7 +71,7 @@ export default [
         price: 111.3,
         crypto: "btc",
         image: boogie,
-        expiryDate: "",
+        expiryDate: "February, 24, 2023",
         owner: {
             avatar: "",
             username: "sowore"

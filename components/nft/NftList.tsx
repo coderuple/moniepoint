@@ -3,9 +3,9 @@ import Nft, { NftProps } from "./Nft";
 
 export default function NftList({ data }: { data: NftProps[] }) {
 	return (
-		<div>
+		<div className="py-4">
 			{data.map((nft: NftProps, id) => {
-				return <Nft key={id} {...nft} />;
+				return <Nft id={id + 1} key={id} {...nft} />;
 			})}
 		</div>
 	);
