@@ -54,7 +54,7 @@ export default function Balance({
 	const TheCounter = (
 		<div className="flex space-x-2 items-end  ">
 			<h1
-				className={`text-white flex-1 flex ${
+				className={`text-white flex  ${
 					size == "small" ? "text-4xl" : "text-5xl"
 				}`}
 			>
@@ -73,7 +73,7 @@ export default function Balance({
 
 						type: "tween",
 					}}
-					className="flex-auto"
+					className="flex-shrink"
 				>
 					{" "}
 					{right}
