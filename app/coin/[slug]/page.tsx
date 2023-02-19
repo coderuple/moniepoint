@@ -38,8 +38,13 @@ export default function Coin({ params }: { params: { slug: string } }) {
 		{ x: 6, open: 35, close: 30, high: 40, low: 3 },
 		{ x: 7, open: 30, close: 90, high: 95, low: 30 },
 		{ x: 8, open: 80, close: 81, high: 83, low: 75 },
-		{ x: 8, open: 80, close: 81, high: 83, low: 75 },
-		{ x: 8, open: 100, close: 81, high: 83, low: 75 },
+		{ x: 9, open: 60, close: 41, high: 83, low: 25 },
+		{ x: 10, open: 190, close: 8, high: 90, low: 7 },
+		{ x: 12, open: 80, close: 83, high: 8, low: 7 },
+		{ x: 13, open: 20, close: 83, high: 33, low: 4 },
+		{ x: 14, open: 40, close: 8, high: 44, low: 5 },
+		{ x: 15, open: 140, close: 1, high: 63, low: 50 },
+		{ x: 16, open: 130, close: 11, high: 33, low: 35 },
 	];
 
 	const x = useMotionValue(0);
@@ -128,42 +133,42 @@ export default function Coin({ params }: { params: { slug: string } }) {
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full "
+								className="hover:bg-white w-24 md:w-full "
 							>
 								15min
 							</ButtonOrLink>
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full"
+								className="hover:bg-white w-24 md:w-full"
 							>
 								1h
 							</ButtonOrLink>
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full"
+								className="hover:bg-white w-24 md:w-full"
 							>
 								1d
 							</ButtonOrLink>
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full"
+								className="hover:bg-white w-24 md:w-full"
 							>
 								1w
 							</ButtonOrLink>
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full"
+								className="hover:bg-white w-24 md:w-full"
 							>
 								1m
 							</ButtonOrLink>
 							<ButtonOrLink
 								intent="tertiary"
 								size="small"
-								className="hover:bg-white w-24 lg:w-full"
+								className="hover:bg-white w-24 md:w-full"
 							>
 								1y
 							</ButtonOrLink>
@@ -171,7 +176,7 @@ export default function Coin({ params }: { params: { slug: string } }) {
 					</motion.div>
 				</div>
 
-				<div className="p-12 mb-60 m-w-[450px]">
+				<div className="p-12 mb-60 flex mx-auto justify-center w-fit">
 					<VictoryChart
 						animate={{ duration: 2000, easing: "elasticIn" }}
 						domainPadding={{ x: 25 }}

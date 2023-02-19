@@ -34,7 +34,8 @@ export default function Nft({
 }: NftProps) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const openClassNames = {
-		container: "fixed w-full z-10 top-0   h-full  bg-brand-tertiary-dark",
+		container:
+			"fixed w-full z-10 top-0  overflow-scroll  h-full  bg-brand-tertiary-dark",
 		image:
 			"h-80   relative aspect-w-16 aspect-h-16 rounded-t-none rounded-b-xl cursor-pointer",
 	};
@@ -195,7 +196,7 @@ export default function Nft({
 							</motion.div>
 						</div>
 
-						<div className="fixed bottom-0 w-full pb-3">
+						<div className=" bottom-0 w-full pb-3">
 							{" "}
 							<motion.div
 								initial={{
