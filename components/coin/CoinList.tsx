@@ -38,6 +38,7 @@ export default function CoinList({ data }: { data: CoinProps[] }) {
 			animate={{
 				opacity: 1,
 			}}
+			className="overflow-hidden"
 		>
 			{
 				// data
