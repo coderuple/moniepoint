@@ -26,9 +26,6 @@ export default function Coin({ params }: { params: { slug: string } }) {
 		return params.slug == slug;
 	});
 
-	const route = useRouter();
-	const controls = useAnimationControls();
-
 	const dataSample = [
 		{ x: 1, open: 9, close: 10, high: 56, low: 7 },
 		{ x: 2, open: 80, close: 40, high: 120, low: 10 },
@@ -46,6 +43,14 @@ export default function Coin({ params }: { params: { slug: string } }) {
 		{ x: 15, open: 140, close: 1, high: 63, low: 50 },
 		{ x: 16, open: 130, close: 11, high: 33, low: 35 },
 	];
+
+	const route = useRouter();
+	const controls = useAnimationControls();
+
+	const [graphData, setGraphData] = useState<typeof dataSample>([]);
+	useEffect(() => {
+		setGraphData(dataSample);
+	}, []);
 
 	const x = useMotionValue(0);
 
@@ -178,6 +183,7 @@ export default function Coin({ params }: { params: { slug: string } }) {
 
 				<div className="p-12 mb-60 flex mx-auto justify-center w-fit">
 					<VictoryChart
+						theme={VictoryTheme.material}
 						animate={{ duration: 2000, easing: "elasticIn" }}
 						domainPadding={{ x: 25 }}
 						scale={{ x: "time" }}
@@ -187,7 +193,7 @@ export default function Coin({ params }: { params: { slug: string } }) {
 						<VictoryCandlestick
 							animate={{ duration: 2000, easing: "elasticIn" }}
 							candleColors={{ positive: "#b9e39a", negative: "#5957bb" }}
-							data={dataSample}
+							data={graphData}
 						/>
 					</VictoryChart>
 				</div>
